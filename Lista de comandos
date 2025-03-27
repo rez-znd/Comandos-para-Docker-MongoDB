@@ -1,0 +1,43 @@
+COMANDOS PARA O DOCKER:
+
+docker network create DockerDB
+
+docker run -d --rm -p 27220:27017 --name kaue --network DockerDB mongo:5 mongod --replSet myReplicaSet --bind_ip localhost,kaue
+
+docker run -d --rm -p 27221:27017 --name rafael --network DockerDB mongo:5 mongod --replSet myReplicaSet --bind_ip localhost,rafael
+
+docker run -d --rm -p 27222:27017 --name matheus --network DockerDB mongo:5 mongod --replSet myReplicaSet --bind_ip localhost,matheus
+
+docker run -d --rm -p 27223:27017 --name luan --network DockerDB mongo:5 mongod --replSet myReplicaSet --bind_ip localhost,luan
+
+docker exec -it kaue mongosh
+
+db.runCommand({hello:1})
+
+rs.initiate ({_id: "myReplicaSet", members:[{_id:0, host: "kaue"}, {_id:1, host: "rafael"}, {_id:2, host: "matheus"}, {_id:3, host: "luan"}]})
+
+exit
+
+docker exec -it rafael mongosh --eval "rs.status()"
+___________________________________________________
+
+COMANDOS PARA O MONGODB:
+
+Ao adicionar uma nova conexão, inserir o link ao fornecido pelo Docker alterando a porta 27017 pelo container primário
+
+mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.3.8
+
+db.cliente.insertOne({
+nome: "Fausto Silva",
+idade: 20})
+
+db.cliente.insertOne({
+nome: "Pedro Silva"})
+
+db.cliente.insertOne({
+nome: "Maria Eduarda",
+idade: 19,})
+
+db["cliente"].find({
+idade:20,})
+
