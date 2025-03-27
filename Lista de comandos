@@ -23,7 +23,7 @@ ___________________________________________________
 
 COMANDOS PARA O MONGODB:
 
-Ao adicionar uma nova conexão, inserir o link ao fornecido pelo Docker alterando a porta 27017 pelo container primário
+Ao adicionar uma nova conexão, inserir o link ao fornecido pelo Docker alterando a porta 27017 pela porta do container primário
 
 mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.3.8
 
